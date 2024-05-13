@@ -42,6 +42,7 @@ export async function fetchComarcas(req, res) {
 
 // Função para adicionar um novo conciliador no banco de da
 export async function addConciliador(req, res) {
+    console.log(req.body);
     const { matricula, nome_conciliador, cpf, telefone, email, comarca_id, data_credenciamento } = req.body;
     try {
         const result = await db.query(`
@@ -73,9 +74,7 @@ export async function deleteConciliadores(req, res) {
             DELETE FROM conciliador WHERE conciliador_id = ${id}
         `);
 
-        if (result.length > 0) {
-            console.log(result);
-            console.log('resultado delete');
+        if (result.length > 0) {                        
             if (result[0].affectedRows > 0) {
                 console.log('affectedRows');
                 res.json({ message: "Conciliadores excluídos com sucesso.", affectedRows: result[0].affectedRows });
